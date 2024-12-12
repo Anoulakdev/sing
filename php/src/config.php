@@ -1,7 +1,7 @@
 <?php
-	$DBHOST = 'localhost';
+	$DBHOST = 'db';
 	$DBUSER = 'root';
-	$DBPASS = '';
+	$DBPASS = 'xayasone';
 	$DBNAME = 'sing';
 
 	$conn = new mysqli($DBHOST,$DBUSER,$DBPASS,$DBNAME);
