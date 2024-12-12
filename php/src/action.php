@@ -18,11 +18,13 @@ if (isset($_POST['add'])) {
 	$name = $_POST['name'];
 	$part = $_POST['part'];
 	$song = $_POST['song'];
+	$score1 = 0;
+	$score2 = 0;
 	$active = 0;
 
-	$query = "INSERT INTO singer(name,part,song,active)VALUES(?,?,?,?)";
+	$query = "INSERT INTO singer(name,part,song,score1,score2,active)VALUES(?,?,?,?,?,?)";
 	$stmt = $conn->prepare($query);
-	$stmt->bind_param("sssi", $name, $part, $song, $active);
+	$stmt->bind_param("sssiii", $name, $part, $song, $score1, $score2, $active);
 	$stmt->execute();
 
 	echo "<script>
