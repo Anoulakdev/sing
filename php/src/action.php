@@ -9,6 +9,7 @@ $id = "";
 $name = "";
 $part = "";
 $song = "";
+$no = "";
 $score1 = "";
 $score2 = "";
 $active = "";
@@ -18,28 +19,52 @@ if (isset($_POST['add'])) {
 	$name = $_POST['name'];
 	$part = $_POST['part'];
 	$song = $_POST['song'];
+	$no = $_POST['no'];
 	$score1 = 0;
 	$score2 = 0;
 	$active = 0;
 
-	$query = "INSERT INTO singer(name,part,song,score1,score2,active)VALUES(?,?,?,?,?,?)";
-	$stmt = $conn->prepare($query);
-	$stmt->bind_param("sssiii", $name, $part, $song, $score1, $score2, $active);
-	$stmt->execute();
+	$result = $conn->query("SELECT no FROM singer WHERE no = '$no'");
+	$row_cnt = $result->num_rows;
 
-	echo "<script>
-			$(document).ready(function() {
-				Swal.fire({
-					position: 'center',
-					icon: 'success',
-					title: 'ເພີ່ມຂໍ້​ມູນເຂົ້າລະບົບສຳເລັດແລ້ວ',
-					showConfirmButton: false,
-					timer: 3000
-				  });
-			});
-		</script>";
+	if ($row_cnt > 0) {
 
-	header("refresh:3; url=singer");
+		echo "<script>
+				$(document).ready(function() {
+					Swal.fire({
+						position: 'center',
+						icon: 'info',
+						title: 'ເລກ​ລຳ​ດັບ​ນີ້ ມີ​ໃນ​ລະ​ບົບ​ແລ້ວ',
+						showConfirmButton: false,
+						timer: 3000
+					  });
+				});
+			</script>";
+	
+		header("refresh:3; url=singer");
+
+	} else {
+
+		$query = "INSERT INTO singer(name,part,song,no,score1,score2,active)VALUES(?,?,?,?,?,?,?)";
+		$stmt = $conn->prepare($query);
+		$stmt->bind_param("ssssiii", $name, $part, $song, $no, $score1, $score2, $active);
+		$stmt->execute();
+	
+		echo "<script>
+				$(document).ready(function() {
+					Swal.fire({
+						position: 'center',
+						icon: 'success',
+						title: 'ເພີ່ມຂໍ້​ມູນເຂົ້າລະບົບສຳເລັດແລ້ວ',
+						showConfirmButton: false,
+						timer: 3000
+					  });
+				});
+			</script>";
+	
+		header("refresh:3; url=singer");
+	}
+
 }
 if (isset($_GET['delete'])) {
 	$id = $_GET['delete'];
@@ -61,10 +86,11 @@ if (isset($_POST['update'])) {
 	$name = $_POST['name'];
 	$part = $_POST['part'];
 	$song = $_POST['song'];
+	$no = $_POST['no'];
 
-	$query = "UPDATE singer SET name=?,part=?,song=? WHERE id=?";
+	$query = "UPDATE singer SET name=?,part=?,song=?,no=? WHERE id=?";
 	$stmt = $conn->prepare($query);
-	$stmt->bind_param("sssi", $name, $part, $song, $id);
+	$stmt->bind_param("sssii", $name, $part, $song, $no, $id);
 	$stmt->execute();
 
 	echo "<script>

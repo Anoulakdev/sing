@@ -64,6 +64,11 @@
                                             <form class="row g-3" action="action" method="post">
 
                                                 <div class="col-md-12">
+                                                    <label for="no" class="form-label">ລຳ​ດັບ​ນັກ​ຮ້ອງ</label>
+                                                    <input type="text" name="no" class="form-control" required>
+                                                </div>
+
+                                                <div class="col-md-12">
                                                     <label for="name" class="form-label">ຊື່ນັກ​ຮ້ອງ</label>
                                                     <input type="text" name="name" class="form-control" required>
                                                 </div>
@@ -92,7 +97,7 @@
                             <!-- Default Table -->
 
                             <?php
-                            $query = "SELECT * FROM singer";
+                            $query = "SELECT * FROM singer order by no asc";
                             $stmt = $conn->prepare($query);
                             $stmt->execute();
                             $result = $stmt->get_result();
@@ -119,7 +124,7 @@
                                         <?php $i = 1; ?>
                                         <?php foreach ($data as $row) { ?>
                                             <tr>
-                                                <td><?= $i++; ?></td>
+                                                <td><?= $row['no']; ?></td>
 
                                                 <td>
                                                     <?php if ($row['active'] == 1) { ?>
@@ -148,6 +153,11 @@
                                                         <div class="modal-body">
                                                             <form class="row g-3" action="action" method="post">
                                                                 <input type="hidden" name="id" value="<?= $row['id']; ?>">
+
+                                                                <div class="col-md-12 mb-2">
+                                                                    <label for="no" class="form-label">ລຳ​ດັບ​ນັກ​ຮ້ອງ</label>
+                                                                    <input type="text" name="no" value="<?= $row['no']; ?>" class="form-control" required>
+                                                                </div>
 
                                                                 <div class="col-md-12 mb-2">
                                                                     <label for="name" class="form-label">ຊື່ນັກ​ຮ້ອງ</label>

@@ -63,7 +63,7 @@ while ($row = $result->fetch_assoc()) {
                                                 <input type="hidden" name="id" value="<?= $row['id']; ?>">
 
                                                 <div class="mb-4 mt-4">
-                                                    <h3 class="text-start"><b>ລຳ​ດັບ​ທີ່: </b><?= $row['id']; ?></h3>
+                                                    <h3 class="text-start"><b>ລຳ​ດັບ​ທີ່: </b><?= $row['no']; ?></h3>
                                                 </div>
 
                                                 <div class="mb-4 mt-4">
