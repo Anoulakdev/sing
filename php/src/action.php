@@ -40,16 +40,15 @@ if (isset($_POST['add'])) {
 					  });
 				});
 			</script>";
-	
-		header("refresh:3; url=singer");
 
+		header("refresh:3; url=singer");
 	} else {
 
 		$query = "INSERT INTO singer(name,part,song,no,score1,score2,active)VALUES(?,?,?,?,?,?,?)";
 		$stmt = $conn->prepare($query);
 		$stmt->bind_param("ssssiii", $name, $part, $song, $no, $score1, $score2, $active);
 		$stmt->execute();
-	
+
 		echo "<script>
 				$(document).ready(function() {
 					Swal.fire({
@@ -61,10 +60,13 @@ if (isset($_POST['add'])) {
 					  });
 				});
 			</script>";
-	
+
 		header("refresh:3; url=singer");
 	}
 
+	$stmt->close();
+	$result->close();
+	$conn->close();
 }
 if (isset($_GET['delete'])) {
 	$id = $_GET['delete'];
@@ -78,6 +80,9 @@ if (isset($_GET['delete'])) {
 
 		header("refresh:1; url=singer");
 	}
+
+	$stmt->close();
+	$conn->close();
 }
 
 if (isset($_POST['update'])) {
@@ -106,6 +111,9 @@ if (isset($_POST['update'])) {
 			</script>";
 
 	header("refresh:3; url=singer");
+
+	$stmt->close();
+	$conn->close();
 }
 
 if (isset($_GET['updateactive'])) {
@@ -130,6 +138,9 @@ if (isset($_GET['updateactive'])) {
 			</script>";
 
 	header("refresh:2; url=singer");
+
+	$stmt->close();
+	$conn->close();
 }
 
 if (isset($_POST['addscore1'])) {
@@ -159,6 +170,10 @@ if (isset($_POST['addscore1'])) {
 			$_SESSION['message'] = "ເພີ່ມຄະ​ແນນ​ບໍ່​ສຳ​ເລັດ";
 			$_SESSION['message_type'] = "error"; // To track message type
 		}
+
+		$stmt->close();
+		$conn->close();
+
 		header("Location: index");
 		exit();
 	} else {
@@ -175,7 +190,9 @@ if (isset($_POST['addscore1'])) {
 			});
 		</script>";
 
-	header("refresh:3; url=index");
+		$conn->close();
+
+		header("refresh:3; url=index");
 	}
 }
 
@@ -206,6 +223,10 @@ if (isset($_POST['minusscore1'])) {
 			$_SESSION['message'] = "ລົບຄະ​ແນນ​ບໍ່​ສຳ​ເລັດ";
 			$_SESSION['message_type'] = "error"; // To track message type
 		}
+
+		$stmt->close();
+		$conn->close();
+
 		header("Location: index");
 		exit();
 	} else {
@@ -222,7 +243,9 @@ if (isset($_POST['minusscore1'])) {
 			});
 		</script>";
 
-	header("refresh:3; url=index");
+		$conn->close();
+
+		header("refresh:3; url=index");
 	}
 }
 
@@ -253,6 +276,10 @@ if (isset($_POST['addscore2'])) {
 			$_SESSION['message'] = "ເພີ່ມຄະ​ແນນ​ບໍ່​ສຳ​ເລັດ";
 			$_SESSION['message_type'] = "error"; // To track message type
 		}
+
+		$stmt->close();
+		$conn->close();
+
 		header("Location: index");
 		exit();
 	} else {
@@ -269,7 +296,9 @@ if (isset($_POST['addscore2'])) {
 			});
 		</script>";
 
-	header("refresh:3; url=index");
+		$conn->close();
+
+		header("refresh:3; url=index");
 	}
 }
 
@@ -300,6 +329,10 @@ if (isset($_POST['minusscore2'])) {
 			$_SESSION['message'] = "ລົບຄະ​ແນນ​ບໍ່​ສຳ​ເລັດ";
 			$_SESSION['message_type'] = "error"; // To track message type
 		}
+
+		$stmt->close();
+		$conn->close();
+
 		header("Location: index");
 		exit();
 	} else {
@@ -316,7 +349,9 @@ if (isset($_POST['minusscore2'])) {
 			});
 		</script>";
 
-	header("refresh:3; url=index");
+		$conn->close();
+
+		header("refresh:3; url=index");
 	}
 }
 ob_end_flush();

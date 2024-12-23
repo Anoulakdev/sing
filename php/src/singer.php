@@ -106,6 +106,9 @@
                             while ($row = $result->fetch_assoc()) {
                                 $data[] = $row;
                             }
+
+                            $stmt->close();
+                            $conn->close();
                             ?>
 
                             <div class="scrollable-table mt-3">

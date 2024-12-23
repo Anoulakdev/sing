@@ -8,6 +8,8 @@ $data = array();
 while ($row = $result->fetch_assoc()) {
     $data[] = $row;
 }
+
+$stmt->close();
 ?>
 <table class="table table-bordered" id="table">
     <thead>
@@ -49,5 +51,9 @@ while ($row = $result->fetch_assoc()) {
                 <td class="text-center fs-2 fw-bold"><?= $row1['alltotals']; ?></td>
             </tr>
         <?php } ?>
+        <?php
+        $stmt1->close();
+        $conn->close();
+        ?>
     </tfoot>
 </table>
